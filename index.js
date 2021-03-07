@@ -3,8 +3,13 @@
 const Joi = require('joi');         // this return Class
 const express = require('express');
 const app = express();
+var bodyParser = require('body-parser');
 
 app.use(express.json());        //to enable to read body
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
 
 const courses = [
     {id:1, name: 'course1'},
@@ -37,17 +42,17 @@ app.get('/api/courses/:id', (req, res) =>{
 //POSTMAN CHROME
 
 app.post('/api/courses', (req,res)=>{
-    /*const schema = {                    //sema za validaciju inputa preko klase joi
+    const schema = {                    //sema za validaciju inputa preko klase joi
         name: Joi.string().min(3).required()    //moga biti string i mora biti veci od 3 caraktera i obavezno je
     }
     const result = Joi.validate(req.body, schema);
-    console.log(result)*/
-    //if(!req.body.name){    //VALIDACIJA UNOSA      // REPLACING VALIDATION LOGIC WITH JOI
+    console.log(result)
+    /*if(!req.body.name || req.body.name.left <3){*/    //VALIDACIJA UNOSA      // REPLACING VALIDATION LOGIC WITH JOI
         // 400 Bad request
-    /*if(result.error){*/
-        //res.status(400).send('Bad request'/*result.error.details[0].message*/);
-        //return;
-    //}
+    if(result.error){
+        res.status(400).send(result.error.details[0].message);
+        return;
+    }
     const course = {
         id:courses.length+1,
         name:req.body.name
@@ -111,7 +116,7 @@ function validateCourse(course) {
     const schema = {
         name: Joi.string().min(3).required()
     };
-    return  Joi.validate(course, schema);
+    return Joi.validate(course, schema);
 
 }
 
