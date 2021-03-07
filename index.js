@@ -42,12 +42,12 @@ app.post('/api/courses', (req,res)=>{
     }
     const result = Joi.validate(req.body, schema);
     console.log(result)*/
-    if(!req.body.name){    //VALIDACIJA UNOSA      // REPLACING VALIDATION LOGIC WITH JOI
+    //if(!req.body.name){    //VALIDACIJA UNOSA      // REPLACING VALIDATION LOGIC WITH JOI
         // 400 Bad request
     /*if(result.error){*/
-        res.status(400).send('Bad request'/*result.error.details[0].message*/);
-        return;
-    }
+        //res.status(400).send('Bad request'/*result.error.details[0].message*/);
+        //return;
+    //}
     const course = {
         id:courses.length+1,
         name:req.body.name
