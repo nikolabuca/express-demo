@@ -47,10 +47,10 @@ app.post('/api/courses', (req,res)=>{
     console.log(result)
     /*if(!req.body.name || req.body.name.left <3){*/    //VALIDACIJA UNOSA      // REPLACING VALIDATION LOGIC WITH JOI
         // 400 Bad request
-    /*if(result.error){
+    if(result.error){
         res.status(400).send(result.error.details[0].message);
         return;
-    }*/
+    }
     const course = {
         id:courses.length+1,
         name:req.body.name
