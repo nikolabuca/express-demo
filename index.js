@@ -37,15 +37,15 @@ app.get('/api/courses/:id', (req, res) =>{
 //POSTMAN CHROME
 
 app.post('/api/courses', (req,res)=>{
-    const schema = {                    //sema za validaciju inputa preko klase joi
+    /*const schema = {                    //sema za validaciju inputa preko klase joi
         name: Joi.string().min(3).required()    //moga biti string i mora biti veci od 3 caraktera i obavezno je
     }
     const result = Joi.validate(req.body, schema);
-    console.log(result)
-    /*if(!req.body.name || req.body.name.left <3){*/    //VALIDACIJA UNOSA      // REPLACING VALIDATION LOGIC WITH JOI
+    console.log(result)*/
+    if(!req.body.name || req.body.name.left <3){    //VALIDACIJA UNOSA      // REPLACING VALIDATION LOGIC WITH JOI
         // 400 Bad request
-    if(result.error){
-        res.status(400).send(result.error.details[0].message);
+    /*if(result.error){*/
+        res.status(400).send('Bad request'/*result.error.details[0].message*/);
         return;
     }
     const course = {
@@ -111,8 +111,8 @@ function validateCourse(course) {
     const schema = {
         name: Joi.string().min(3).required()
     };
-    const result = Joi.validate(course, schema);
-    return result;
+    return  Joi.validate(course, schema);
+
 }
 
 /*app.get('/api/posts/:year/:month', (req, res) =>{
@@ -127,3 +127,4 @@ function validateCourse(course) {
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
 
+//https://www.youtube.com/watch?v=MxfxiR8TVNU
